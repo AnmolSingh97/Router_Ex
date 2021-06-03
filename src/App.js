@@ -1,7 +1,9 @@
 import {useState} from "react";
-import WeatherAxios from './components/WeatherAxios';
 import MainUI from './components/MainUI';
 import './assets/bg.jpg'
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import HomePage from "./components/HomePage";
+import AboutPage from "./components/AboutPage";
 
 function App() {
 
@@ -23,8 +25,11 @@ function App() {
   const [forecastDateThree, setForecastDateThree] = useState('')
 
   return (
+    <BrowserRouter>
     <div className="App" style={{backgroundImage: `url('https://homongst.sirv.com/bg.jpg')`}}>
-      <MainUI
+      <Switch>
+      <Route path="/" exact component={HomePage} />
+      <Route path="/weather" render={() => <MainUI
        placeName={placeName}
        setPlaceName={setPlaceName}
        cityName={cityName}
@@ -58,8 +63,12 @@ function App() {
        forecastDateThree={forecastDateThree}
        setForecastDateThree={setForecastDateThree}
        />
-      {/* <WeatherAxios placeName={placeName} setPlaceName={setPlaceName}  /> */}
+      } />
+      <Route path="/about" component={AboutPage} />
+      
+       </Switch>
     </div>
+    </BrowserRouter>
   );
 }
 
